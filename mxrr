@@ -1,0 +1,346 @@
+#!/bin/bash
+#mxrr MX-comfort-rofi-recolor
+#Tool to edit colors in Rofi Themes
+#V0.01b by Melber, 22 April 2022
+#License: GPL-3.0+
+
+
+
+#define some variables
+
+TITLE="MX-rofi-recolor"
+CLASS="mxrr"
+ROFIPATH="$HOME/.config/rofi/themes"
+ICONPATH="/usr/share/pixmaps/mxcr-icon.png"
+#HELPPATH="/usr/share/pixmaps/mxrr-help.png"
+
+
+#delete stylelist and tempclr after use
+trap "rm -r "$ROFIPATH/tempdir" " EXIT
+
+#
+if [ ! -d $ROFIPATH ]; then
+
+mkdir $ROFIPATH
+
+fi
+
+#create tempdir
+
+if [ ! -d $ROFIPATH/tempdir ]; then
+
+  mkdir -p $ROFIPATH/tempdir
+
+fi
+
+
+# Check if mxrr.txt exists in MX-comfort and MX-comfort-dark, create if false
+
+if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
+
+
+  printf "#1D2324 #0f56d9 #1D2324 #1D2324 #CACDD0 #29353B #ffffff #EEEFF4 #EEEFF4 #1D2324 #0f56d9 #ffffff MX-comfort yes" > $ROFIPATH/MX-comfort-rr
+
+fi
+
+
+if [ ! -f ~/.config/rofi/themes/MX-comfort-dark-rr ]; then
+
+  printf "#1D2324 #0f56d9 #1D2324 #1D2324 #CACDD0 #29353B #ffffff #29353B #29353B #ffffff #0f56d9 #ffffff MX-comfort-dark yes" > $ROFIPATH/MX-comfort-dark-rr
+
+fi
+
+
+#read available styles
+
+cd $ROFIPATH
+ls -f *-rr > $ROFIPATH/tempdir/themelist.txt
+sed -i 's|-rr||g' $ROFIPATH/tempdir/themelist.txt
+
+
+#select starting style
+
+BASESTYLE=$( yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="\n<b> Choose which theme to use as a starting point</b>\n" --center --width=400 --height=300 --center --list --no-headers --separator="" --column=Style < $ROFIPATH/tempdir/themelist.txt )
+
+GETOUT=$(echo "$?")
+
+if [ "$GETOUT" != 0 ]; then
+
+  exit
+
+fi
+
+
+if [ -z "$BASESTYLE" ]; then
+
+  yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="No theme selected.\n\n<b>MX-comfort</b> will be used as the starting theme." --button=OK --text-align=center --center --width=400 --height=200 --borders=20 \
+
+  BASESTYLE=MX-comfort
+
+fi
+
+
+#read colors
+
+cd $ROFIPATH
+
+read -r -a NEWCOLORS < "$BASESTYLE"-rr
+
+WIBR="${NEWCOLORS[0]}"
+MBBR="${NEWCOLORS[1]}"
+IPBG="${NEWCOLORS[2]}"
+PRBG="${NEWCOLORS[3]}"
+PRAN="${NEWCOLORS[4]}"
+ENBG="${NEWCOLORS[5]}"
+ENTX="${NEWCOLORS[6]}"
+LIBG="${NEWCOLORS[7]}"
+ELBG="${NEWCOLORS[8]}"
+ELTX="${NEWCOLORS[9]}"
+ESBG="${NEWCOLORS[10]}"
+ESTX="${NEWCOLORS[11]}"
+NEWNAME="${NEWCOLORS[12]}"
+MAKECUR="${NEWCOLORS[13]}"
+
+
+# function to be called with yad button
+
+color_picker() {
+    local N=$1 C="$2"
+    local YAD=(
+            yad
+            --title="mxrr-colour-selector"
+            --class=color-select
+            --window-icon=color-select
+            --posx=200
+            --posy=200
+            --color
+            --init-color="${C:=white}"
+            )
+    C=$("${YAD[@]}")
+    (($?==0)) && echo "$N:$C"
+}
+
+
+# function to be called with help button
+
+mxrrhelp() {
+yad --title="MX-Rofi-recolor help"  --class=mxrrhelp --window-icon=/usr/share/pixmaps/mxcr-icon.png --borders=20 --fixed --width=600 --height=400 --button="Return to Main Window":1 \
+--text="<b>A quick description of the selection fields
+Diagramme to be added later</b>
+Window Border - Color of thin line around outermost edge
+Window Highlight - Color of line across top of window
+Input Background - Color in search area
+Prompt Background - Color behind Annotation
+Prompt Annotation - Color of Search Apps text
+Search Bar Background - Color of search bar
+Search Bar Text - Color of search bar text
+List Background - Color around list area
+Element Background - Color of list items background
+Element Text - Color of list items text
+Selection Background - Color of selected list item
+Selection Text - Color of selected list item text
+"
+
+}
+
+export -f color_picker mxrrhelp
+
+#MAIN
+#color selection dialogue
+
+MAIN=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=20 --center --width=600 --height=400 --fixed --form --columns=5 --align=right --separator=" " --button="gtk-help":"bash -c mxrrhelp" --button="gtk-quit":1 --button="gtk-ok":0 \
+--text="<b>\nEdit colors and create a new rofi theme.\n\n</b>" \
+--field="<b>Window Items           </b>":LBL " " \
+--field="Window Border":CLR "$WIBR" \
+--field="Window Highlight":CLR "$MBBR" \
+--field="Input Background":CLR "$IPBG" \
+--field="Promt Background":CLR "$PRBG" \
+--field="Promt Annotation":CLR "$PRAN" \
+--field="Search Bar Background":CLR "$ENBG" \
+--field="Search Bar Text":CLR "$ENTX" \
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+--field='!color-select':BTN '@bash -c "color_picker 2 %2;"'
+--field='!color-select':BTN '@bash -c "color_picker 3 %3;"'
+--field='!color-select':BTN '@bash -c "color_picker 4 %4;"'
+--field='!color-select':BTN '@bash -c "color_picker 5 %5;"'
+--field='!color-select':BTN '@bash -c "color_picker 6 %6;"'
+--field='!color-select':BTN '@bash -c "color_picker 7 %6;"'
+--field='!color-select':BTN '@bash -c "color_picker 8 %6;"'
+--field=" ":LBL " " \
+--field="<b>List Items           </b>":LBL " " \
+--field="List Background":CLR "$LIBG" \
+--field="Element Background":CLR "$ELBG" \
+--field="Element Text":CLR "$ELTX" \
+--field="Selection Background":CLR "$ESBG" \
+--field="Selection Text":CLR "$ESTX" \
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+--field='!color-select':BTN '@bash -c "color_picker 20 %20;"'
+--field='!color-select':BTN '@bash -c "color_picker 21 %21;"'
+--field='!color-select':BTN '@bash -c "color_picker 22 %22;"'
+--field='!color-select':BTN '@bash -c "color_picker 23 %23;"'
+--field='!color-select':BTN '@bash -c "color_picker 24 %24;"'
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+--field="<b>  Name for new theme        </b>":LBL " " \
+--field=" " ""$NEWNAME"" \
+--field="<b>  Make new theme current?</b>":LBL " " \
+--field=" ":CB "yes!no" \
+--field=" ":LBL " " \
+--field=" ":LBL " " \
+)
+
+COLOURS=$("${MAIN[@]}")
+    (($?==0)) && echo "$COLOURS" > $ROFIPATH/tempdir/tempmain.txt
+
+GETOUT=$(echo "$?")
+
+if [ "$GETOUT" != 0 ]; then
+
+  exit
+
+elif [ "$GETOUT" = 0 ]; then
+
+  cd $ROFIPATH/tempdir
+
+  read -r -a NEWCOLORS < tempmain.txt
+
+  WIBR="${NEWCOLORS[0]}"
+  MBBR="${NEWCOLORS[1]}"
+  IPBG="${NEWCOLORS[2]}"
+  PRBG="${NEWCOLORS[3]}"
+  PRAN="${NEWCOLORS[4]}"
+  ENBG="${NEWCOLORS[5]}"
+  ENTX="${NEWCOLORS[6]}"
+  LIBG="${NEWCOLORS[7]}"
+  ELBG="${NEWCOLORS[8]}"
+  ELTX="${NEWCOLORS[9]}"
+  ESBG="${NEWCOLORS[10]}"
+  ESTX="${NEWCOLORS[11]}"
+  NEWNAME="${NEWCOLORS[12]}"
+  MAKECUR="${NEWCOLORS[13]}"
+
+fi
+
+
+#check theme names yes no
+
+if [ "$NEWNAME" = 'yes' -o "$NEWNAME" = 'no' ]; then
+
+  MAKECUR="$NEWNAME"  
+
+  NEWNAME=$(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --text="No Theme name !" --form --center --borders=20 --separator="" \
+  --field="<b>Name for new theme</b>":LBL " " \
+  --field=" " "New theme name" )
+    
+    GETOUT=$(echo "$?")
+
+    if [ "$GETOUT" != 0 ]; then
+
+    exit
+
+    fi
+
+fi
+
+
+#check new theme name is not empty and forbid MX-comfort overwrite
+
+while [ -z "$NEWNAME" -o "$NEWNAME" = 'MX-comfort' -o "$NEWNAME" = 'MX-comfort-dark' -o "$NEWNAME" = 'MX-comfort-plus' -o "$NEWNAME" = 'MX-comfort-plus-dark' ]; do
+
+  NEWNAME=$(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --text="Theme name "$NEWNAME" is protected. Choose another name." --form --center --borders=20 --separator="" \
+  --field="<b>Name for new style</b>":LBL " " \
+  --field=" " "$NEWNAME-new" )
+
+    GETOUT=$(echo "$?")
+
+    if [ "$GETOUT" != 0 ]; then
+
+    exit
+
+    fi
+
+done
+
+
+#check if new theme name exists, if yes ask if overwrite or different style name
+
+cd $ROFIPATH
+
+while [ -f $NEWNAME.rasi ]; do
+
+  yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --fixed --text="A Theme with this name already exists. \n\nDo you want to overwrite <b>"$NEWNAME"</b>\nor save as a different theme name\n" --button="Overwrite $NEWNAME":2 --button="Save as different theme name":3 --text-align=center --center --borders=20\
+
+    case $? in
+
+    2) rm -r $ROFIPATH/$NEWNAME.rasi   ;;
+
+    3) NEWNAME=$(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --form --center --borders=20 --separator="" \
+    --field="<b>Name for new theme</b>":LBL " " \
+    --field=" " "$NEWNAME-new" )    ;;
+
+    252) exit 0    ;;
+
+  esac
+  
+done
+
+
+#create -rr file, copy and amend .rasi file
+
+cd $ROFIPATH
+
+echo ""$WIBR" "$MBBR" "$IPBG" "$PRBG" "$PRAN" "$ENBG" "$ENTX" "$LIBG" "$ELBG" "$ELTX" "$ESBG" "$ESTX" "$NEWNAME" "$MAKECUR"" > $ROFIPATH/$NEWNAME-rr
+
+cp -r $ROFIPATH/template.rasi $ROFIPATH/$NEWNAME.rasi
+
+sed -i "s/NEWNAME/$NEWNAME/g" $NEWNAME.rasi
+sed -i "s/WIBR/$WIBR/g" $NEWNAME.rasi
+sed -i "s/MBBR/$MBBR/g" $NEWNAME.rasi
+sed -i "s/IPBG/$IPBG/g" $NEWNAME.rasi
+sed -i "s/PRBG/$PRBG/g" $NEWNAME.rasi
+sed -i "s/PRAN/$PRAN/g" $NEWNAME.rasi
+sed -i "s/ENBG/$ENBG/g" $NEWNAME.rasi
+sed -i "s/ENTX/$ENTX/g" $NEWNAME.rasi
+sed -i "s/LIBG/$LIBG/g" $NEWNAME.rasi
+sed -i "s/ELBG/$ELBG/g" $NEWNAME.rasi
+sed -i "s/ELTX/$ELTX/g" $NEWNAME.rasi
+sed -i "s/ESBG/$ESBG/g" $NEWNAME.rasi
+sed -i "s/ESTX/$ESTX/g" $NEWNAME.rasi
+
+
+#set new theme as current
+
+if [ "$MAKECUR" = yes ]; then
+
+cd $HOME/.config/rofi/
+
+printf "configuration {
+	
+	modi: \"drun\";
+	width: 25;
+	show-icons: true;
+	icon-theme: \"papirus\";
+	lines: 20;
+	fake-transparency: true;
+	sidebar-mode: true;
+}
+@import \""$ROFIPATH"/"$NEWNAME".rasi"\" > $HOME/.config/rofi/config.rasi
+
+
+  yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --center --borders=20 --text="All done!\n<b>"$NEWNAME"</b> has been set as the current rofi theme.\n\nYou can change themes in the terminal with the command <b>rofi-theme-selector</b>" --text-align=center --button="OK" \
+
+fi
+
+
+if [ "$MAKECUR" = no ]; then
+
+  yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=250 --fixed --center --borders=20 --text="All done!\n<b>"$NEWNAME"</b> theme has been created.\n\nYou can change themes in the terminal with the command <b>rofi-theme-selector</b>" --text-align=center --button="OK" \
+
+fi
+
+exit
