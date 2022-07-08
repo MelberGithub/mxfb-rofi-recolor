@@ -24,8 +24,8 @@
     active-background:           #1D2324;
     selected-active-background:  #29353B;
     alternate-active-background: #1D2324;
-
 }
+
 window {
     border-color:     @normal-background;
     background-color: @background;
@@ -33,10 +33,8 @@ window {
     padding:          0px;
     padding:          0.5em;
     spacing:          0px;
-
     anchor:         center;
     location:       center;
-
     children: [ inputbar, message, wrapper-mode-switcher, listview , pagerbox ];
 }
 
@@ -51,8 +49,6 @@ pad {
   expand: true;
 }
 
-
-
 wrapper-mode-switcher {
     orientation: horizontal;
 
@@ -60,7 +56,6 @@ wrapper-mode-switcher {
     spacing:    0;
     children: [ mode-switcher ];
 }
-
 
 mode-switcher {
     border:  0px;
@@ -73,6 +68,7 @@ button {
     background-color: @background;
     border-color: @separatorcolor;
 }
+
 button selected.normal {
     text-color: @normal-foreground;
     background-color: @normal-background;
@@ -80,7 +76,6 @@ button selected.normal {
     border:       5px 0px 0px ;
     border-color: @separatorcolor;
 }
-
 
 sidebar {
     expand: false;
@@ -101,74 +96,89 @@ listview {
     scrollbar:    false;
     padding:      0.5em;
     background-color: @normal-background;
-
     expand:       true;
-
 }
+
 element {
     border:  1px;
     padding: 4px ;
+    background-color: @background;
+    text-color:       @foreground;
 }
+
 element-text {
     background-color: inherit;
     text-color:       inherit;
 }
+
 element.normal.normal {
     background-color: @normal-background;
     text-color:       @normal-foreground;
 }
+
 element.normal.urgent {
     background-color: @urgent-background;
     text-color:       @urgent-foreground;
 }
+
 element.normal.active {
     background-color: @active-background;
     text-color:       @active-foreground;
 }
+
 element.selected.normal {
     border:  1;
     border-color:     @bordercolor;
     background-color: @selected-normal-background;
     text-color:       @selected-normal-foreground;
 }
+
 element.selected.urgent {
     border:  1;
     border-color:     @bordercolor;
     background-color: @selected-urgent-background;
     text-color:       @selected-urgent-foreground;
 }
+
 element.selected.active {
     border:  1;
     border-color:     @bordercolor;
     background-color: @selected-active-background;
     text-color:       @selected-active-foreground;
 }
+
 element.alternate.normal {
     background-color: @alternate-normal-background;
     text-color:       @alternate-normal-foreground;
 }
+
 element.alternate.urgent {
     background-color: @alternate-urgent-background;
     text-color:       @alternate-urgent-foreground;
 }
+
 element.alternate.active {
     background-color: @alternate-active-background;
     text-color:       @alternate-active-foreground;
 }
+
 scrollbar {
     width:        4px ;
     border:       0;
     handle-width: 8px ;
     padding:      0;
 }
+
 sidebar {
     border:       2px 0px 0px ;
     border-color: @separatorcolor;
 }
+
 inputbar {
     text-color: @normal-foreground;
     padding: 0px 0px 0.5em;
 }
+
 case-indicator {
     text-color: @normal-foreground;
 }
@@ -178,13 +188,13 @@ wrapper {
     text-color:       @normal-background;
     background-color: @normal-foreground;
     border-color:     @normal-background;
-
     border: 1px;
     border-radius: 5px;
     padding: 4px;
     children:   [ icon-k, entry, icon-paste];
     spacing:  0.5em;
 }
+
 button-paste {
     expand: false;
     str: "gtk-paste";
@@ -192,6 +202,7 @@ button-paste {
     vertical-align: 0.5;
     action: "kb-cancel";
 }
+
 icon-paste {
     expand: false;
     filename: "gtk-paste";
@@ -199,16 +210,18 @@ icon-paste {
     vertical-align: 0.5;
     action: "kb-primary-paste";
 }
+
 icon-k {
     expand: false;
     filename: "input-keyboard";
     size: 24;
     vertical-align: 0.5;
-
 }
+
 entry {
     vertical-align: 0.5;
 }
+
 inputbar {
     children:   [ wrapper ];
 }
@@ -219,5 +232,4 @@ error-message {
     border-radius: 10px;
     border: 2px;
     padding: 0.5em;
-
 }
