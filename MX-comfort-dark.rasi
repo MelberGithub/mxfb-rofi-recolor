@@ -1,0 +1,76 @@
+/**
+ * ROFI Color theme
+ */
+* {
+    //
+    // MX-comfort-dark style
+    //
+    font: "Noto Sans 12";
+    //
+}
+
+window {
+    location: center;
+    anchor:   center;
+    width: 20%;
+    border: 1;
+	border-color: #1D2324;
+}
+
+mainbox {
+    background-color: #1D2324;
+    children: [ inputbar, listview ];
+	border: 4px 0px 0px 0px;
+	border-color: #0f56d9;
+}
+
+inputbar {
+    background-color: #1D2324;
+	text-color: #ffffff;
+	padding: 10px;
+	children: [textbox-prompt-colon, entry];
+}
+
+textbox-prompt-colon {
+    background-color: #1D2324;
+    expand:     false;
+    str:        "  Search Apps :  ";
+	vertical-align: 0.5;
+    text-color: #CACDD0;
+}
+
+entry {
+    border-radius:  5px 5px 5px 5px;
+    background-color: #29353B;
+	text-color: #ffffff;
+	font: "Noto Sans Bold 12";
+	vertical-align: 0.5;
+	padding: 5px;
+}
+
+listview {
+	columns: 1;
+	lines: 12;
+	background-color: #29353B;
+}
+
+element {
+	background-color: #29353B;
+	padding: 6;
+	text-color: #ffffff;
+}
+
+element selected {
+	background-color: #0f56d9;
+	text-color: #ffffff;
+}
+
+element-text {
+	background-color: inherit;
+	text-color: inherit;
+	vertical-align: 0.5;
+}
+
+element-icon {
+	size: 30;
+}
