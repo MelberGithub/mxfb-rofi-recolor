@@ -1,0 +1,102 @@
+/**
+ * ROFI Color theme
+ */
+* {
+    //
+    // MX-comfort-2 style
+    //
+    font: "Noto Sans 12";
+    //
+}
+
+window {
+    location: center;
+    anchor:   center;
+    width: 20%;
+    border: 1;
+	border-color: #1D2324;
+}
+
+mainbox {
+    background-color: #1D2324;
+    children: [ inputbar, wrapper-mode-switcher, listview ];
+}
+
+inputbar {
+    background-color: #1D2324;
+	text-color: #ffffff;
+	padding: 10px;
+	children: [textbox-prompt-colon, entry];
+}
+
+textbox-prompt-colon {
+    background-color: #1D2324;
+    expand:     false;
+    str:        "  Search :  ";
+	vertical-align: 0.5;
+    text-color: #CACDD0;
+}
+
+entry {
+    border-radius:  5px 5px 5px 5px;
+    background-color: #29353B;
+	text-color: #ffffff;
+	font: "Noto Sans Bold 12";
+	vertical-align: 0.5;
+	padding: 5px;
+}
+
+wrapper-mode-switcher {
+    orientation: horizontal;
+
+    expand:     false;
+    spacing:    0;
+    children: [ mode-switcher ];
+}
+
+mode-switcher {
+    border:  0px;
+    spacing: 0px;
+    expand: true;
+}
+
+button {
+    background-color: #29353B;
+    border-color: #29353B;
+    text-color: #CACDD0;
+}
+
+button selected.normal {
+    text-color: #ffffff;
+    background-color: #1D2324;
+
+    border:       3px 0px 0px ;
+    border-color: #0f56d9;
+}
+
+listview {
+	columns: 1;
+	lines: 12;
+	background-color: #EEEFF4;
+}
+
+element {
+	background-color: #EEEFF4;
+	padding: 3;
+	text-color: #1D2324;
+}
+
+element selected {
+	background-color: #0f56d9;
+	text-color: #ffffff;
+}
+
+element-text {
+	background-color: inherit;
+	text-color: inherit;
+	vertical-align: 0.5;
+}
+
+element-icon {
+	size: 30;
+}
