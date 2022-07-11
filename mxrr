@@ -114,23 +114,7 @@ color_picker() {
 # function to be called with help button
 
 mxrrhelp() {
-yad --title="MX-Rofi-recolor help"  --class=mxrrhelp --window-icon=/usr/share/pixmaps/mxcr-icon.png --borders=20 --fixed --width=600 --height=400 --button="Return to Main Window":1 \
---text="<b>A quick description of the selection fields
-Diagramme to be added later</b>
-Window Border - Color of thin line around outermost edge
-Window Highlight - Color of line across top of window
-Input Background - Color in search area
-Prompt Background - Color behind Annotation
-Prompt Annotation - Color of Search Apps text
-Search Bar Background - Color of search bar
-Search Bar Text - Color of search bar text
-List Background - Color around list area
-Element Background - Color of list items background
-Element Text - Color of list items text
-Selection Background - Color of selected list item
-Selection Text - Color of selected list item text
-"
-
+yad --title="MX-Rofi-recolor help"  --class=mxrrhelp --window-icon=/usr/share/pixmaps/mxcr-icon.png --borders=20 --fixed --width=600 --height=400 --image /usr/share/pixmaps/help/mxrr-help.png --button="Return to Main Window":1 \
 }
 
 export -f color_picker mxrrhelp
