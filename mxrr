@@ -1,7 +1,7 @@
 #!/bin/bash
 #mxrr MX-comfort-rofi-recolor
 #Tool to edit colors in Rofi Themes
-#V0.02 by Melber, 11 July 2022
+#V0.03 by Melber, 12 July 2022
 #License: GPL-3.0+
 
 #define some variables
