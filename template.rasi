@@ -54,9 +54,9 @@ inputbar {
 
 textbox-prompt-colon {
     background-color: @color01;
-    expand:     false;
-    str:        "  Search :  ";
-	vertical-align: 0.5;
+    expand: false;
+    str: "  Search :  ";
+    vertical-align: 0.5;
     text-color: @color02;
 }
 
@@ -95,28 +95,28 @@ button selected.normal {
 }
 
 listview {
-	columns: 1;
-	lines: 12;
-	background-color: @color07;
+    columns: 1;
+    lines: 12;
+    background-color: @color07;
 }
 
 element {
-	background-color: @color07;
-	padding: 6;
-	text-color: @color08;
+    background-color: @color07;
+    padding: 6;
+    text-color: @color08;
 }
 
 element selected {
-	background-color: @color10;
-	text-color: @color11;
+    background-color: @color10;
+    text-color: @color11;
 }
 
 element-text {
-	background-color: inherit;
-	text-color: inherit;
-	vertical-align: 0.5;
+    background-color: inherit;
+    text-color: inherit;
+    vertical-align: 0.5;
 }
 
 element-icon {
-	size: 30;
+    size: 30;
 }
