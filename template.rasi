@@ -41,13 +41,15 @@ window {
 mainbox {
     background-color: @color01;
     children: [ inputbar, wrapper-mode-switcher, listview ];
+    spacing: 0px;
 }
 
 inputbar {
     background-color: @color01;
-	text-color: @color02;
-	padding: 10px;
-	children: [textbox-prompt-colon, entry];
+    text-color: @color02;
+    padding: 10px;
+    margin: 5px 0px 5px 0px;
+    children: [textbox-prompt-colon, entry];
 }
 
 textbox-prompt-colon {
@@ -61,17 +63,16 @@ textbox-prompt-colon {
 entry {
     border-radius:  5px 5px 5px 5px;
     background-color: @color03;
-	text-color: @color04;
-	font: "Noto Sans Bold 12";
-	vertical-align: 0.5;
-	padding: 5px;
+    text-color: @color04;
+    font: "Noto Sans Bold 12";
+    vertical-align: 0.5;
+    padding: 5px 15px;
 }
 
 wrapper-mode-switcher {
     orientation: horizontal;
-
-    expand:     false;
-    spacing:    0;
+    expand: false;
+    spacing: 0;
     children: [ mode-switcher ];
 }
 
@@ -89,7 +90,7 @@ button {
 button selected.normal {
     background-color: @color07;
     text-color: @color08;
-    border:       3px 0px 0px 0px ;
+    border: 4px 0px 0px 0px ;
     border-color: @color09;
 }
 
