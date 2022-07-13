@@ -1,8 +1,10 @@
 #!/bin/bash
 #mxrr MX-comfort-rofi-recolor
 #Tool to edit colors in Rofi Themes
-#V0.03 by Melber, 12 July 2022
+#V0.03 by Melber, 13 July 2022
 #License: GPL-3.0+
+
+
 
 #define some variables
 
@@ -32,7 +34,7 @@ if [ ! -d $ROFIPATH/tempdir ]; then
 fi
 
 
-# Check if mxrr.txt exists in MX-comfort, create if false
+# Check if mxrr.txt exists, create if false
 
 if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
 
@@ -114,7 +116,7 @@ color_picker() {
 # function to be called with help button
 
 mxrrhelp() {
-yad --title="MX-Rofi-recolor help"  --class=mxrrhelp --window-icon=/usr/share/pixmaps/mxcr-icon.png --borders=20 --fixed --width=600 --height=400 --image /usr/share/pixmaps/help/mxrr-help.png --button="Return to Main Window":1 \
+yad --title="MX-Rofi-recolor help"  --class=mxrrhelp --window-icon=/usr/share/pixmaps/mxcr-icon.png --borders=20 --fixed --center --width=600 --height=400 --image ~/.config/rofi/mxrr-help.png --button="Return to Main Window":1 \
 }
 
 export -f color_picker mxrrhelp
@@ -151,11 +153,11 @@ MAIN=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=
 --field=" ":LBL " " \
 --field=" ":LBL " " \
 --field=" ":LBL " " \
+--field='!color-select':BTN '@bash -c "color_picker 19 %19;"'
 --field='!color-select':BTN '@bash -c "color_picker 20 %20;"'
 --field='!color-select':BTN '@bash -c "color_picker 21 %21;"'
 --field='!color-select':BTN '@bash -c "color_picker 22 %22;"'
 --field='!color-select':BTN '@bash -c "color_picker 23 %23;"'
---field='!color-select':BTN '@bash -c "color_picker 24 %24;"'
 --field=" ":LBL " " \
 --field=" ":LBL " " \
 --field=" ":LBL " " \
