@@ -83,8 +83,9 @@ mode-switcher {
 
 button {
     background-color: @color05;
-    border-color: @color05;
     text-color: @color06;
+    border: 4px 0px 0px 0px ;
+    border-color: @color05;
 }
 
 button selected.normal {
