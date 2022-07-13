@@ -2,11 +2,9 @@
  * ROFI Color theme
  */
 * {
-    //
     // MX-comfort
     // with tabs
     font: "Noto Sans 12";
-    //
 }
 
 * {
@@ -56,25 +54,25 @@ inputbar {
 
 textbox-prompt-colon {
     background-color: @color01;
-    expand:     false;
-    str:        "  Search :  ";
+    expand: false;
+    str: "  Search :  ";
     vertical-align: 0.5;
     text-color: @color02;
 }
 
 entry {
-    border-radius:  5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
     background-color: @color03;
     text-color: @color04;
     font: "Noto Sans Bold 12";
     vertical-align: 0.5;
-    padding: 5px 20px;
+    padding: 5px 15px;
 }
 
 wrapper-mode-switcher {
     orientation: horizontal;
-    expand:     false;
-    spacing:    0;
+    expand: false;
+    spacing: 0;
     children: [ mode-switcher ];
 }
 
@@ -97,28 +95,28 @@ button selected.normal {
 }
 
 listview {
-	columns: 1;
-	lines: 12;
-	background-color: @color07;
+    columns: 1;
+    lines: 12;
+    background-color: @color07;
 }
 
 element {
-	background-color: @color07;
-	padding: 6;
-	text-color: @color08;
+    background-color: @color07;
+    padding: 6;
+    text-color: @color08;
 }
 
 element selected {
-	background-color: @color10;
-	text-color: @color11;
+    background-color: @color10;
+    text-color: @color11;
 }
 
 element-text {
-	background-color: inherit;
-	text-color: inherit;
-	vertical-align: 0.5;
+    background-color: inherit;
+    text-color: inherit;
+    vertical-align: 0.5;
 }
 
 element-icon {
-	size: 30;
+    size: 30;
 }
