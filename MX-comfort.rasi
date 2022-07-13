@@ -61,7 +61,7 @@ textbox-prompt-colon {
 }
 
 entry {
-    border-radius: 5px 5px 5px 5px;
+    border-radius:  5px 5px 5px 5px;
     background-color: @color03;
     text-color: @color04;
     font: "Noto Sans Bold 12";
@@ -83,8 +83,9 @@ mode-switcher {
 
 button {
     background-color: @color05;
-    border-color: @color05;
     text-color: @color06;
+    border: 4px 0px 0px 0px ;
+    border-color: @color05;
 }
 
 button selected.normal {
