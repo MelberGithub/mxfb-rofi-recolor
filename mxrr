@@ -1,9 +1,9 @@
 #!/bin/bash
 #mxrr MX-comfort-rofi-recolor
 #Tool to edit colors in MX-comfort rofi theme
-#V0.03 by Melber, 13 July 2022
+#V0.04 by Melber, 17 August 2022
+#Changelog: Fixes for Jerry
 #License: GPL-3.0+
-
 
 #define some variables
 
@@ -116,6 +116,7 @@ color_picker() {
 
 mxrrhelp() {
 yad --title="MX-Rofi-recolor help"  --class=mxrrhelp --window-icon=/usr/share/pixmaps/mxcr-icon.png --borders=20 --fixed --center --width=600 --height=400 --image ~/.config/rofi/mxrr-help.png --button="Return to Main Window":1 \
+
 }
 
 export -f color_picker mxrrhelp
@@ -292,7 +293,7 @@ if [ "$MAKECUR" = yes ]; then
 
 cd $HOME/.config/rofi/
 
-ROFIOLD="$(grep "themes" $HOME/.config/rofi/config.rasi)"
+ROFIOLD="$(grep "import" $HOME/.config/rofi/config.rasi)"
 ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 ROFINEW="@import \""$ROFIPATH"/"$NEWNAME".rasi"\"
